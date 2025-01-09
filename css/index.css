@@ -1,0 +1,322 @@
+html,body{
+    margin: 0;
+    padding: 0;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    transition: var(--animation-duration);
+}
+header{
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 48px;
+    width: 100%;
+    background: rgba(var(--primary-rgb), 1);
+    box-shadow: 0 2px 3px 1px rgba(var(--text-rgb), 0.1);
+    color: white;
+    line-height: 48px;
+    z-index: 12000;
+    user-select: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+}
+.HeaderLogo{
+    height: 36px;
+    position: absolute;
+    top: 6px;
+}
+.menubutton, .MenuCollapseButton{
+    position: absolute;
+    top: 6px;
+    left: 10px;
+    height: 36px;
+    padding-top: 4px;
+    border: none;
+    border-radius: var(--border-radius);
+    background-color: transparent;
+    color: var(--primary-text-color);
+    transition: var(--animation-duration);
+    outline: none;
+}
+
+.menubutton:hover,.MenuCollapseButton:hover{
+    background-color: rgba(120,120,120,0.2);
+    box-shadow: 0 3px 5px 2px rgba(var(--text-rgb),0.2);
+}
+.menubutton:active,.MenuCollapseButton:active{
+    background-color: rgba(var(--primary-rgb),0.6);
+    box-shadow: 0 1px 4px 1px rgba(var(--text-rgb),0.5) !important;
+}
+.headermenu{
+    margin-left: 130px;
+}
+.headerright{
+    position: absolute;
+    right: 12px;
+    top: 6px;
+}
+.headerright .headerrightBtn{
+    padding-top: 5px;
+    border-radius: 50% !important;
+    height: 36px;
+    width: 36px;
+    border: none;
+    outline: none;
+    background-color: transparent;
+    color: var(--primary-text-color);
+}
+.headerright .headerrightBtn:hover{
+    background-color: var(--primary-color);
+}
+.headerright .headerrightBtn:active{
+    background-color: var(--primary-color);
+    transform: scale(0.95);
+}
+.headerright .MoreButton{
+    transform: scale(1) !important;
+}
+.MobileMenu{
+    position: fixed;
+    top: 48px;
+    left: -300px;
+    height: calc(100% - 48px);
+    width: 90%;
+    max-width: 300px;
+    background-color: var(--background-color);
+    transition: var(--animation-duration) ease-out;
+    z-index: 10000;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+.mobileMenuDrop{
+    display: none;
+    background-color: rgba(var(--text-rgb),0.1);
+    animation: showMobileMenuDrop 0.15s ease-out forwards;
+    position: static;
+}
+@keyframes showMobileMenuDrop {
+    from{
+        transform: translateY(-100%);
+        top: -100%;
+    }
+    to{
+        transform: translateY(0);
+        top: 0;
+    }
+}
+.mobileMenuDrop .MobileButton{
+    padding-left: 40px;
+    background-color: transparent;
+}
+.MobileMenu .MobileButton{
+    width: 100%;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    text-align: left;
+    z-index: 1;
+}
+
+.MobileMenu .MobileButton svg{
+    position: absolute;
+    right: 20px;
+    top: 12px;
+    transition: var(--animation-duration);
+}
+.MenuLink{
+    background-color: transparent;
+    outline: none;
+    border: none;
+    height: 48px;
+    cursor: pointer;
+}
+.MenuLinkContent{
+    display: inline-block;
+    background-color: transparent;
+    border-radius: var(--border-radius);
+    height: 32px;
+    padding: 0 12px;
+    line-height: 32px;
+    color: var(--primary-text-color);
+    transition: var(--animation-duration);
+}
+.MenuLink:hover .MenuLinkContent{
+    background-color: var(--primary-color);
+    box-shadow: 0 3px 5px 2px rgba(var(--text-rgb),0.2);
+}
+.MenuLink:active .MenuLinkContent{
+    background-color: rgba(120,120,120,0.5);
+    box-shadow: 0 1px 4px 1px rgba(var(--text-rgb),0.2) !important;
+
+}
+.MenuLink:active{
+    transform: scale(0.95);
+}
+
+.grayback{
+    background-color: rgba(var(--text-rgb),0.34);
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.MoreButtonMenu{
+    position: fixed;
+    right: 6px;
+    top: 48px;
+    width: 200px;
+    transform: translateY(-100%);
+    transition: var(--animation-duration);
+    border: 1px solid var(--hover-color);
+    border-radius: var(--border-radius);
+    box-shadow: 0 4px 8px rgba(130,130,130, 0.1);
+    overflow: hidden;
+    height: 350px;
+}
+@media (max-width: 200px) {
+    .MoreButtonMenu{
+        border-radius: 0;
+        width: 100%;
+        right: 0;
+        top: 45px;
+        border: none;
+    }
+}
+@media (max-height: 550px) {
+    .MoreButtonMenu{
+        border-radius: 0;
+        height: calc(100% - 45px);
+        width: 100%;
+        right: 0;
+        top: 45px;
+        border: none;
+    }
+}
+
+@media (max-width: 700px) {
+    .HeaderLogo{
+        left: 50%;
+        transform: translateX(-50%);
+    }
+    .menubutton{
+        display: block;
+    }
+    .headermenu{
+        display: none;
+    }
+    .headerright .MoreButton{
+        display: inline-block;
+    }
+    .headerright .FunctionButton{
+        display: none;
+    }
+}
+@media (min-width: 701px) {
+
+    .HeaderLogo{
+        left: 15px;
+    }
+    .menubutton{
+        display: none;
+    }
+    .headermenu{
+        display: block;
+    }
+    .headerright .MoreButton{
+        display: none;
+    }
+    .headerright .FunctionButton{
+        display: inline-block;
+    }
+}
+@supports (backdrop-filter: blur(10px)) {
+    header {
+        background: rgba(var(--primary-rgb), var(--background-opacity)) !important;
+        backdrop-filter: saturate(180%) blur(10px);
+    }
+}
+.TopLoadingLogo{
+    width: 80px;
+    position: absolute;
+    top: calc(50% - 130px);
+    left: calc(50% - 40px);
+    animation: topLoadingLogo 2s infinite linear;
+}
+@keyframes topLoadingLogo {
+    0%{
+        opacity: 0.8;
+    }
+    50%{
+        opacity: 1;
+        transform: none;
+    }
+    100%{
+        opacity: 0.8;
+    }
+}
+.userHeaderMenuButton{
+    height: 50px;
+}
+.userHeaderMenuButton b{
+    font-size: var(--font-sizr-big);
+    position: absolute;
+    left: 48px;
+    top: 8px;
+}
+.userHeaderMenuButton label{
+    font-size: var(--font-sizr);
+    position: absolute;
+    left: 48px;
+    top: 26px;
+}
+.userHeaderMenuButton img{
+    width: 36px;
+    height: 36px;
+    position: absolute;
+    top: 7px;
+    left: 6px;
+    background-color: var(--hover-color);
+    border-radius: 50%;
+}
+.HeaderMenuButton span{
+    padding-left: 20px;
+}
+.HeaderMenuButton svg{
+    position: absolute;
+    top: 9px;
+    left: 12px;
+}
+
+.subPageMenu{
+    transition: var(--animation-duration);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    transform: translateX(100%);
+    z-index: 10000;
+    background-color: var(--background-color);
+}
+.subPageMenuCloseButton{
+    border-radius: 50% !important;
+    width: 40px;
+    height: 40px;
+    margin: 5px;
+    padding: 2px 0 0 0 !important;
+    box-shadow: none !important;
+}
+.MenuLinkMenu{
+    transform: translateY(-100%);
+    transition: transform var(--animation-duration);
+    border-radius: var(--border-radius);
+    position: fixed;
+    left: 6px;
+    top: 48px;
+    width: 150px;
+    border: 1px solid var(--hover-color);
+    box-shadow: 0 4px 8px rgba(130,130,130, 0.1);
+    overflow: hidden;
+}

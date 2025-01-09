@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="css/general.css">
+    <link rel="stylesheet" href="css/account.css">
+</head>
+<body>
+
+<div id="TopHide" style="position: fixed;left: 0;top: 0;width: 100%;height: 100%;z-index: 2147483646;background-color: white;padding: 10px">
+    <div class="logo" style="width: calc(100% - 90px)"></div>
+    <h1 style="width: calc(100% - 20px);text-align: center">There was a problem loading the page.</h1>
+    <label id="TopHideError"></label><br />
+
+    <b>Possible Solutions</b>
+    <ul>Try Again Later</ul>
+    <ul>Enable JavaScript On This Page</ul>
+    <ul>Update Your Browser</ul>
+    <a href="#">Help</a>
+</div>
+<div id="TopLoading">
+    <div class="progress-ring">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" class="ring">
+            <circle class="static" cx="50%" cy="50%" r="43.75%"></circle>
+            <circle class="dynamic" cx="50%" cy="50%" r="43.75%"></circle>
+        </svg>
+    </div>
+</div>
+<!--无法实现动画效果-->
+<div class="middle-container">
+    <div class="logo"></div>
+
+
+    <div class="middle-page" id="pageCheck">
+
+    </div>
+    <div class="middle-page" id="pageUserName">
+        <label class="PageTitle">注册</label><br />
+        <label class="PageText">请输入您的电子邮箱地址</label><br />
+        <div class="PageInput">
+            <input class="input" type="text" onkeydown="handleEnter(event)" required>
+            <span class="bar"></span>
+            <label class="label">请输入电子邮箱</label>
+        </div>
+        <button class="PageElement linkbutton">登录</button>
+        <div class="BottomButton">
+            <button class="button btn-white">White button</button>
+            <button class="button btn-primary next-btn" onclick="ShowPage('pagePassword')">下一步</button>
+        </div>
+    </div>
+    <div class="middle-page" id="pagePassword">
+        <label class="PageTitle">验证您的账户</label><br />
+        <label class="PageText">我们已经向您的邮箱(<b id="VerMailAddress">1@gmail.com</b>)发送一篇包括验证码的邮箱，如果没有收到，请检查您的垃圾邮箱</label><br />
+        <div class="PageInput">
+            <input class="input" type="text" onkeydown="handleEnter(event)" required>
+            <span class="bar"></span>
+            <label class="label">验证码</label>
+        </div>
+        <button class="PageElement linkbutton">重新发送</button>
+        <div class="BottomButton">
+            <button class="button btn-white" onclick="ShowPage('pageUserName')">上一步</button>
+            <button class="button btn-primary next-btn" onclick="ShowPage('pageVerification')">下一步</button>
+        </div>
+    </div>
+    <div class="middle-page" id="pageVerification">
+        <label class="PageTitle">设置密码</label><br />
+        <label class="PageText">此密码用于登录您的账户</label><br />
+        <div class="PageInput">
+            <input class="input" type="password" required>
+            <span class="bar"></span>
+            <label class="label">密码</label>
+        </div>
+        <div class="PageInput">
+            <input class="input" type="password" required>
+            <span class="bar"></span>
+            <label class="label">验证密码</label>
+        </div>
+        <div class="BottomButton">
+            <button class="button btn-white" onclick="ShowPage('pageUserName')">上一步</button>
+            <button class="button btn-primary" onclick="ShowPage('pageVerification')">下一步</button>
+        </div>
+    </div>
+    <div class="middle-page" id="pageConfirm"></div>
+    <div class="middle-page" id="pageInfo"></div>
+    <div class="middle-page" id="pageProblemSlover"></div>
+    <script>
+        document.getElementById("TopHide").style.display="none";
+        // 监听所有 link 和 script 标签的加载
+        document.querySelectorAll('link[rel="stylesheet"], script').forEach(function(element) {
+            if (element.tagName.toLowerCase() === 'link') {
+                element.onerror = function() {
+                    document.getElementById("TopHide").style.display="block";
+                    document.getElementById("TopHideError").innerHTML+=("发生错误的文件："+element.href+"<br />");
+                };
+            } else if (element.tagName.toLowerCase() === 'script') {
+                element.onerror = function() {
+                    document.getElementById("TopHide").style.display="block";
+                    document.getElementById("TopHideError").innerHTML+=("发生错误的文件："+element.src+"<br />");
+                };
+            }
+        });
+
+        /*let devtoolsOpened = false;
+        const checkDevTools = () => {
+            const start = performance.now();
+            debugger; // 使调试器暂停
+            const end = performance.now();
+            if (end - start > 100) {
+                devtoolsOpened = true;
+            }
+        };
+        setInterval(() => {
+            checkDevTools();
+            if (devtoolsOpened) {
+                window.location.reload();
+            }
+        }, 5000);*/
+    </script>
+</div>
+<div class="bottomlinks">
+    <button class="morebutton">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-three-dots" viewBox="0 0 16 16">
+            <path d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3m5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3m5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3"/>
+        </svg>
+    </button>
+    <div class="morebuttonmenu">
+        <div id="morebuttonmenubuttons">
+            <button class="linkbutton">使用条款</button>
+            <button class="linkbutton">隐私协议</button>
+            <button class="linkbutton" onclick="ProblemSlover()">故障排除</button>
+        </div>
+        <div id="morebuttonmenproblem">
+            <button class="linkbutton" onclick="CloseProblemSlover()">
+                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="red" class="bi bi-x-circle" viewBox="0 0 16 16">
+                    <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
+                    <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708"/>
+                </svg>
+            </button>
+            <button class="linkbutton">
+                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-copy" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M4 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 5a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-1h1v1a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h1v1z"/>
+                </svg>
+            </button>
+            <button class="linkbutton" style="float: right;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-question-circle" viewBox="0 0 16 16">
+                    <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
+                    <path d="M5.255 5.786a.237.237 0 0 0 .241.247h.825c.138 0 .248-.113.266-.25.09-.656.54-1.134 1.342-1.134.686 0 1.314.343 1.314 1.168 0 .635-.374.927-.965 1.371-.673.489-1.206 1.06-1.168 1.987l.003.217a.25.25 0 0 0 .25.246h.811a.25.25 0 0 0 .25-.25v-.105c0-.718.273-.927 1.01-1.486.609-.463 1.244-.977 1.244-2.056 0-1.511-1.276-2.241-2.673-2.241-1.267 0-2.655.59-2.75 2.286m1.557 5.763c0 .533.425.927 1.01.927.609 0 1.028-.394 1.028-.927 0-.552-.42-.94-1.029-.94-.584 0-1.009.388-1.009.94"/>
+                </svg>
+            </button><br />
+            错误代码:<br /><label id="ErrorCode">12345</label><br />
+            请求ID:<br /><label id="requestID">00000000000000000000000000</label>
+        </div>
+    </div>
+    <button class="linkbutton bottomlinkbutton">使用条款</button>
+    <button class="linkbutton bottomlinkbutton">隐私协议</button>
+    <button class="linkbutton bottomlinkbutton" onclick="ProblemSlover()">
+        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" class="bi bi-tools" viewBox="0 0 16 16">
+        <path d="M1 0 0 1l2.2 3.081a1 1 0 0 0 .815.419h.07a1 1 0 0 1 .708.293l2.675 2.675-2.617 2.654A3.003 3.003 0 0 0 0 13a3 3 0 1 0 5.878-.851l2.654-2.617.968.968-.305.914a1 1 0 0 0 .242 1.023l3.27 3.27a.997.997 0 0 0 1.414 0l1.586-1.586a.997.997 0 0 0 0-1.414l-3.27-3.27a1 1 0 0 0-1.023-.242L10.5 9.5l-.96-.96 2.68-2.643A3.005 3.005 0 0 0 16 3q0-.405-.102-.777l-2.14 2.141L12 4l-.364-1.757L13.777.102a3 3 0 0 0-3.675 3.68L7.462 6.46 4.793 3.793a1 1 0 0 1-.293-.707v-.071a1 1 0 0 0-.419-.814zm9.646 10.646a.5.5 0 0 1 .708 0l2.914 2.915a.5.5 0 0 1-.707.707l-2.915-2.914a.5.5 0 0 1 0-.708M3 11l.471.242.529.026.287.445.445.287.026.529L5 13l-.242.471-.026.529-.445.287-.287.445-.529.026L3 15l-.471-.242L2 14.732l-.287-.445L1.268 14l-.026-.529L1 13l.242-.471.026-.529.445-.287.287-.445.529-.026z"/>
+    </svg>&nbsp;故障排除
+    </button>
+</div>
+
+<script src="js/general.js" ></script>
+<script src="js/account.js"></script>
+
+</body>
+</html>

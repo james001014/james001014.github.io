@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="css/general.css">
+    <link rel="stylesheet" href="css/account.css">
+</head>
+<body>
+
+<div id="TopHide" style="position: fixed;left: 0;top: 0;width: 100%;height: 100%;z-index: 2147483646;background-color: white;padding: 10px">
+    <div class="logo" style="width: calc(100% - 90px)"></div>
+    <h1 style="width: calc(100% - 20px);text-align: center">There was a problem loading the page.</h1>
+    <label id="TopHideError"></label><br />
+
+    <b>Possible Solutions</b>
+    <ul>Try Again Later</ul>
+    <ul>Enable JavaScript On This Page</ul>
+    <ul>Update Your Browser</ul>
+    <a href="#">Help</a>
+</div>
+<div id="TopLoading">
+    <div class="progress-ring">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" class="ring">
+            <circle class="static" cx="50%" cy="50%" r="43.75%"></circle>
+            <circle class="dynamic" cx="50%" cy="50%" r="43.75%"></circle>
+        </svg>
+    </div>
+</div>
+<!--无法实现动画效果-->
+<div class="middle-container">
+    <div class="logo"></div>
+
+
+    <div class="middle-page" id="pageCheck">
+
+    </div>
+    <div class="middle-page" id="pageUserName">
+        <label class="PageTitle">登录</label><br />
+        <div class="PageInput">
+            <input class="input" type="text" onkeydown="handleEnter(event)" required>
+            <span class="bar"></span>
+            <label class="label">电子邮箱或电话</label>
+        </div>
+        <button class="PageElement linkbutton">我无法登录</button>
+        <div class="BottomButton">
+            <button class="button btn-white">White button</button>
+            <button class="button btn-primary next-btn" onclick="ShowPage('pagePassword')">下一步</button>
+        </div>
+    </div>
+    <div class="middle-page" id="pagePassword">
+        <label class="PageTitle">请输入密码</label><br />
+        <div class="PageInput">
+            <input class="input" type="password" onkeydown="handleEnter(event)" required>
+            <span class="bar"></span>
+            <label class="label">密码</label>
+        </div>
+        <button class="PageElement linkbutton">忘记密码</button>
+        <div class="BottomButton">
+            <button class="button btn-white" onclick="ShowPage('pageUserName')">上一步</button>
+            <button class="button btn-primary next-btn" onclick="ShowPage('pageVerification')">下一步</button>
+        </div>
+    </div>
+    <div class="middle-page" id="pageVerification">
+        <label class="PageTitle">验证您的身份</label><br />
+        <label class="PageText">请输入您的邮箱地址(<b id="VerMailAddress">1@gmail.com</b>)</label><br />
+        <div class="PageInput">
+            <input class="input" type="text" required>
+            <span class="bar"></span>
+            <label class="label">密码</label>
+        </div>
+        <button class="PageElement linkbutton">忘记密码</button>
+        <div class="BottomButton">
+            <button class="button btn-white" onclick="ShowPage('pageUserName')">上一步</button>
+            <button class="button btn-primary" onclick="ShowPage('pageVerification')">下一步</button>
+        </div>
+    </div>
+    <div class="middle-page" id="pageConfirm"></div>
+    <div class="middle-page" id="pageInfo"></div>
+    <div class="middle-page" id="pageError"></div>
+    <script>
+        document.getElementById("TopHide").style.display="none";
+        // 监听所有 link 和 script 标签的加载
+        document.querySelectorAll('link[rel="stylesheet"], script').forEach(function(element) {
+            if (element.tagName.toLowerCase() === 'link') {
+                element.onerror = function() {
+                    document.getElementById("TopHide").style.display="block";
+                    document.getElementById("TopHideError").innerHTML+=("发生错误的文件："+element.href+"<br />");
+                };
+            } else if (element.tagName.toLowerCase() === 'script') {
+                element.onerror = function() {
+                    document.getElementById("TopHide").style.display="block";
+                    document.getElementById("TopHideError").innerHTML+=("发生错误的文件："+element.src+"<br />");
+                };
+            }
+        });
+
+        /*let devtoolsOpened = false;
+        const checkDevTools = () => {
+            const start = performance.now();
+            debugger; // 使调试器暂停
+            const end = performance.now();
+            if (end - start > 100) {
+                devtoolsOpened = true;
+            }
+        };
+        setInterval(() => {
+            checkDevTools();
+            if (devtoolsOpened) {
+                window.location.reload();
+            }
+        }, 5000);*/
+    </script>
+</div>
+<script src="js/general.js" ></script>
+<script src="js/account.js"></script>
+
+</body>
+</html>

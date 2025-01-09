@@ -1,0 +1,17 @@
+.MenuAlwaysShown{
+    display: block !important;
+}
+@media (min-width: 701px) {
+    .MenuAlwaysShown{
+        left: 0 !important;
+        box-shadow: 1px 0 5px rgba(120,120,120,0.5);
+    }
+    .HeaderLogo{
+        left: 50px;
+    }
+}
+@media (max-width: 700px) {
+    .MenuCollapseButton{
+        display: none;
+    }
+}

@@ -1,0 +1,230 @@
+
+.middle-container{
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border: 1px solid rgba(130,130,130,0.2);
+    border-radius: 8px;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    box-shadow: 0 4px 8px rgba(130,130,130, 0.1);
+    width: calc(100% - 40px);
+    max-width: 440px;
+    height: 380px;
+    padding: 0;
+    overflow-x: hidden;
+}
+.logo{
+    background-image: url('/image/logowithtext.svg');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    width: 152px;
+    height: 60px;
+    margin: 25px 30px;
+
+}
+.PageTitle{
+    font-size: 30px;
+    margin: 25px 30px;
+}
+.PageText{
+    margin: 5px 30px 0;
+    display: inline-block;
+}
+.PageInput{
+    margin: 25px 30px;
+    position:relative;
+}
+.PageElement{
+    margin-left: 30px;
+}
+.BottomButton{
+    float: right;
+    margin-right: 30px;
+    margin-top: 40px;
+    margin-bottom: 10px;
+}
+@keyframes slideInRight {
+    0% {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    100% {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slideInLeft {
+    0% {
+        transform: translateX(-100%);
+        opacity: 0;
+    }
+    100% {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+.middle-page {
+    display: none; /* 确保初始隐藏 */
+    position: absolute; /* 使其层叠在一起 */
+    transition: all 0.3s; /* 平滑过渡效果 */
+    width: 100%;
+}
+.input         {
+    font-size:18px;
+    padding:10px 10px 5px 5px;
+    display:block;
+    width:calc(100% - 30px);
+    border:none;
+    border-bottom:1px solid #757575;
+}
+.input:focus     { outline:none; }
+.label          {
+    color:#999;
+    font-size:18px;
+    font-weight:normal;
+    position:absolute;
+    pointer-events:none;
+    left:5px;
+    top:10px;
+    transition:0.2s ease all;
+    -moz-transition:0.2s ease all;
+    -webkit-transition:0.2s ease all;
+    white-space: nowrap;
+
+}
+.input:focus ~ .label{
+    top:-12px;
+    font-size:14px;
+    color:var(--primary-color);
+}
+.input:valid ~ .label{
+    top:-12px;
+    font-size:14px;
+
+}
+.bar  { position:relative; display:block; width:calc(100% - 15px);margin-top:2px }
+.bar:before, .bar:after   {
+    content:'';
+    height:2px;
+    width:0;
+    bottom:1px;
+    position:absolute;
+    background:var(--primary-color);
+    transition:0.2s ease all;
+    -moz-transition:0.2s ease all;
+    -webkit-transition:0.2s ease all;
+}
+.bar:before {
+    left:50%;
+}
+.bar:after {
+    right:50%;
+}
+.input:focus ~ .bar:before, .input:focus ~ .bar:after {
+    width:50%;
+}
+
+.linkbutton {
+    display: inline-block; /* 让链接表现为块元素 */
+    padding: 1px 2px; /* 内边距，增加点击区域 */
+    font-size: 16px; /* 字体大小 */
+    color: var(--primary-color); /* 链接文字颜色 */
+    background-color: transparent; /* 背景透明 */
+    border: none; /* 不显示边框 */
+    text-decoration: none; /* 移除下划线 */
+    cursor: pointer; /* 鼠标悬停时显示指针 */
+    transition: color,background-color 0.12s ease; /* 添加过渡效果 */
+    border-radius: 4px;
+
+}
+.linkbutton:hover {
+    color: #357ae8; /* 悬停时改变颜色 */
+    background-color: rgba(var(--primary-rgb),0.08);
+}
+
+.linkbutton:focus {
+    outline: none;
+}
+
+.bottomlinks{
+    position: fixed;
+    left: 5px;
+    bottom: 5px;
+    overflow: visible;
+    max-height: 28px;
+    display: block;
+}
+.bottomlinks .linkbutton{
+    font-size: 12px !important;
+}
+.bottomlinks .morebutton{
+    display: none;
+    padding-top: 5px;
+    outline: none;
+    border: none;
+    background-color: transparent;
+    border-radius: 4px;
+}
+.bottomlinks .morebutton:hover{
+    background-color: rgba(120,120,120,0.1);
+}
+#morebuttonmenproblem{
+    display: none;
+}
+.bottomlinks .morebuttonmenu{
+    display: none;
+    position: fixed;
+    left: 5px;
+    bottom: 32px;
+    height: 66px;
+    width: 52px;
+    padding: 5px;
+    border: 1px solid rgba(120,120,120,0.2);
+    border-radius: 4px;
+    box-shadow: 0 4px 8px rgba(130,130,130, 0.1);
+    z-index: 5000;
+    backdrop-filter: saturate(180%) blur(2px);
+    background-color: rgba(var(--background-rgb),0.5);
+    transition: 0.15s;
+}
+/* 显示菜单 */
+.morebutton:focus + .morebuttonmenu,
+.morebutton:hover + .morebuttonmenu,
+.morebutton-container:hover .morebuttonmenu {
+    display: block;
+}
+
+/* 保持菜单显示在鼠标悬停按钮时 */
+.morebuttonmenu:hover {
+    display: block;
+}
+
+/* 通过点击和悬停在容器内时，菜单保持显示 */
+.morebutton-container:hover .morebuttonmenu {
+    display: block;
+}
+@media (max-width: 600px), (max-height: 390px) {
+    .middle-container {
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        transform: translate(0, 0);
+        border: none;
+        border-radius: 0;
+        max-width: none !important;
+    }
+}
+@media (max-height: 430px) {
+    .bottomlinkbutton{
+        display: none;
+    }
+    .bottomlinks .morebutton{
+        display: block;
+    }
+}
