@@ -29,7 +29,7 @@
 </div>
 <!--无法实现动画效果-->
 <div class="middle-container">
-    <div class="logo"></div>
+    <div class="logo" id="logo"></div>
 
 
     <div class="middle-page" id="pageCheck">
@@ -43,7 +43,7 @@
             <span class="bar"></span>
             <label class="label">请输入电子邮箱</label>
         </div>
-        <button class="PageElement linkbutton">登录</button>
+        <button class="PageElement linkbutton" onclick="goLogin()">登录</button>
         <div class="BottomButton">
             <button class="button btn-white">White button</button>
             <button class="button btn-primary next-btn" onclick="ShowPage('pagePassword')">下一步</button>
@@ -163,6 +163,6 @@
 
 <script src="js/general.js" ></script>
 <script src="js/account.js"></script>
-
+<script src="js/accountInBuild.js"></script>
 </body>
 </html>

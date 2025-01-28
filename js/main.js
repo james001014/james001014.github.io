@@ -1,4 +1,58 @@
-document.getElementById("TopLoading").style.display = "none";
+window.onload=function (){
+    if(cookieExists("EnableColorfulMode")){
+        if (getCookie("EnableColorfulMode")==="1"){
+            if (getComputedStyle(document.documentElement).getPropertyValue('--background-rgb') === "255,255,255") {
+
+                document.getElementsByClassName("MainHeader")[0].style.background = "linear-gradient(to right, #caeefb54, #a2e0f185, #d9f2d08c)";
+            } else {
+                document.getElementsByClassName("MainHeader")[0].style.background = "linear-gradient(to right, #163e64, #0565ad, #13501b)";
+            }
+            ColorfulModeEnable=true;
+            document.getElementById("ColorfulSide").checked=true;
+        }
+        else{
+            document.getElementsByClassName("MainHeader")[0].style.background = "";
+            ColorfulModeEnable=false;
+            document.getElementById("ColorfulSide").checked=false;
+        }
+    }
+
+    if(cookieExists("EnableDarkMode")){
+        if (getCookie("EnableDarkMode")==="1"){
+            document.documentElement.style.setProperty('--background-rgb',"22,22,23");
+            document.documentElement.style.setProperty('--text-rgb',"255,255,255");
+            document.documentElement.style.setProperty('--hover-color',"rgb(61,61,62)");
+            document.getElementsByClassName("HeaderLogo")[0].src="/image/darklogowithtext.svg";
+            document.getElementById("DarkModeSide").checked=true;
+            if (ColorfulModeEnable) {
+                document.getElementsByClassName("MainHeader")[0].style.background = "linear-gradient(to right, #163e64, #0565ad, #13501b)";
+            }
+        }
+        else{
+            document.documentElement.style.setProperty('--background-rgb',"255,255,255");
+            document.documentElement.style.setProperty('--text-rgb',"0,0,0");
+            document.documentElement.style.setProperty('--hover-color',"rgb(210,212,212)");
+            document.getElementsByClassName("HeaderLogo")[0].src="/image/logowithtext.svg";
+            document.getElementById("DarkModeSide").checked=false;
+            if (ColorfulModeEnable) {
+                document.getElementsByClassName("MainHeader")[0].style.background = "linear-gradient(to right, #caeefb54, #a2e0f185, #d9f2d08c)";
+            }
+        }
+    }
+    document.getElementById("TopLoading").style.display = "none";
+};
+
+
+
+
+
+
+
+
+
+
+
+
 var mobilemenuback=document.createElement("div");
 mobilemenuback.className="grayback"
 mobilemenuback.style.zIndex = "9999";
@@ -39,7 +93,11 @@ MoreButton.forEach(button => {
             if (otherElement && otherElement !== element) {
                 if (otherElement.style.transform === "translateY(1%)"){
                     otherElement.style.transform = "translateY(-100%)";
+
+                    otherElement.style.opacity="0";
+
                     otherButton.style.backgroundColor = "";
+                    otherButton.style.color = "";
                     // 移除全局监听器
                     document.removeEventListener('click', MoreButtonLintener);
                 }
@@ -50,12 +108,16 @@ MoreButton.forEach(button => {
         if (element) {
             if (element.style.transform === "translateY(1%)") {
                 element.style.transform = "translateY(-100%)";
+                element.style.opacity="0";
                 this.style.backgroundColor = "";
+                this.style.color = "";
                 // 移除全局监听器
                 document.removeEventListener('click', MoreButtonLintener);
             } else {
                 element.style.transform = "translateY(1%)";
+                element.style.opacity="1";
                 this.style.backgroundColor = "var(--primary-color)";
+                this.style.color = "var(--primary-text-color)";
                 // 添加全局点击事件监听器，点击其他地方时模拟点击当前按钮
                 MoreButtonLintener = function(event) {
                     closeMenu(event, button, element);
@@ -111,6 +173,7 @@ document.querySelectorAll(".MenuLink").forEach(button => {
     if (MenuLinkMenu) {
         button.addEventListener("mouseover", function (event) {
             MenuLinkMenu.style.transform = "translateY(0%)";
+            MenuLinkMenu.style.opacity = "1";
             MenuLinkMenu.style.left = (this.getBoundingClientRect().left - (MenuLinkMenu.style.width / 2)).toString() + "px";
         });
 
@@ -128,22 +191,51 @@ document.querySelectorAll(".MenuLink").forEach(button => {
 
             if (!isMouseOverButton && !isMouseOverMenu) {
                 MenuLinkMenu.style.transform = "translateY(-100%)";
+                MenuLinkMenu.style.opacity = "0";
             }
         }
     }
 })
+let ColorfulModeEnable=false;
+function ColorfulMode(){
+    if (ColorfulModeEnable){
+        document.getElementsByClassName("MainHeader")[0].style.background = "";
+        ColorfulModeEnable=false;
+        setCookie("EnableColorfulMode","0");
+    }
+    else {
+        if (getComputedStyle(document.documentElement).getPropertyValue('--background-rgb') === "255,255,255") {
+
+            document.getElementsByClassName("MainHeader")[0].style.background = "linear-gradient(to right, #caeefb54, #a2e0f185, #d9f2d08c)";
+        } else {
+            document.getElementsByClassName("MainHeader")[0].style.background = "linear-gradient(to right, #163e64, #0565ad, #13501b)";
+        }
+        ColorfulModeEnable=true;
+        setCookie("EnableColorfulMode","1");
+    }
+}
 function darkmode(){
     if(getComputedStyle(document.documentElement).getPropertyValue('--background-rgb')==="255,255,255"){
         document.documentElement.style.setProperty('--background-rgb',"22,22,23");
         document.documentElement.style.setProperty('--text-rgb',"255,255,255");
         document.documentElement.style.setProperty('--hover-color',"rgb(61,61,62)");
+        document.getElementsByClassName("HeaderLogo")[0].src="/image/darklogowithtext.svg";
         document.getElementById("DarkModeSide").checked=true;
+        if (ColorfulModeEnable) {
+            document.getElementsByClassName("MainHeader")[0].style.background = "linear-gradient(to right, #163e64, #0565ad, #13501b)";
+        }
+        setCookie("EnableDarkMode","1");
     }
     else {
         document.documentElement.style.setProperty('--background-rgb',"255,255,255");
         document.documentElement.style.setProperty('--text-rgb',"0,0,0");
         document.documentElement.style.setProperty('--hover-color',"rgb(210,212,212)");
+        document.getElementsByClassName("HeaderLogo")[0].src="/image/logowithtext.svg";
         document.getElementById("DarkModeSide").checked=false;
+        if (ColorfulModeEnable) {
+            document.getElementsByClassName("MainHeader")[0].style.background = "linear-gradient(to right, #caeefb54, #a2e0f185, #d9f2d08c)";
+        }
+        setCookie("EnableDarkMode","0");
     }
 }
 function disableanimation(){
@@ -175,9 +267,14 @@ function enablehighcontrast() {
         document.documentElement.style.setProperty('--background-opacity',"0.75");
         document.documentElement.style.setProperty('--primary-rgb',"0, 119, 211");
         document.documentElement.style.setProperty('--Contrast-border',"none");
+        document.getElementsByClassName("MainHeader")[0].style.background = "";
         document.getElementById("DarkModeSide").checked=false;
+        document.getElementsByClassName("HeaderLogo")[0].src="/image/logowithtext.svg";
         document.getElementById("EnableHighContrast").checked=false;
         document.getElementById("DarkModeSide").disabled=false;
+        document.getElementById("ColorfulSide").checked=false;
+        document.getElementById("ColorfulSide").disabled=false;
+        ColorfulModeEnable=false;
     }
     else {
         document.documentElement.style.setProperty('--background-rgb',"0,0,0");
@@ -187,8 +284,107 @@ function enablehighcontrast() {
         document.documentElement.style.setProperty('--background-opacity',"1");
         document.documentElement.style.setProperty('--primary-rgb',"255, 255, 51");
         document.documentElement.style.setProperty('--Contrast-border',"1px solid yellow");
+        document.getElementsByClassName("MainHeader")[0].style.background = "";
         document.getElementById("DarkModeSide").checked=false;
         document.getElementById("EnableHighContrast").checked=true;
+        document.getElementsByClassName("HeaderLogo")[0].src="/image/darklogowithtext.svg";
         document.getElementById("DarkModeSide").disabled=true;
+        document.getElementById("ColorfulSide").checked=false;
+        document.getElementById("ColorfulSide").disabled=true;
+        ColorfulModeEnable=false;
     }
 }
+function EnableBiggerFont(){
+    if (getComputedStyle(document.documentElement).getPropertyValue('--font-sizr')==="18px"){
+        document.documentElement.style.setProperty('--font-sizr', "14px");
+        document.documentElement.style.setProperty('--font-sizr-big', "16px");
+        document.documentElement.style.setProperty('--font-sizr-bigger', "20px");
+        document.documentElement.style.setProperty('--font-sizr-bigger-f', "24px");
+        document.documentElement.style.setProperty('--font-sizr-bigger-s', "28px");
+        document.documentElement.style.setProperty('--font-sizr-bigger-t', "32px");
+        document.documentElement.style.setProperty('--font-sizr-biggest', "36px");
+        document.documentElement.style.setProperty('--font-sizr-small', "10px");
+        document.documentElement.style.setProperty('--font-sizr-smaller', "8px");
+        document.documentElement.style.setProperty('--font-sizr-smaller-f', "4px");
+        document.documentElement.style.setProperty('--font-sizr-smaller-f', "6px");
+        document.documentElement.style.setProperty('--font-sizr-smallest', "2px");
+    }else {
+        document.documentElement.style.setProperty('--font-sizr', "18px");
+        document.documentElement.style.setProperty('--font-sizr-big', "20px");
+        document.documentElement.style.setProperty('--font-sizr-bigger', "24px");
+        document.documentElement.style.setProperty('--font-sizr-bigger-f', "28px");
+        document.documentElement.style.setProperty('--font-sizr-bigger-s', "32px");
+        document.documentElement.style.setProperty('--font-sizr-bigger-t', "36px");
+        document.documentElement.style.setProperty('--font-sizr-biggest', "40px");
+        document.documentElement.style.setProperty('--font-sizr-small', "14px");
+        document.documentElement.style.setProperty('--font-sizr-smaller', "12px");
+        document.documentElement.style.setProperty('--font-sizr-smaller-f', "10px");
+        document.documentElement.style.setProperty('--font-sizr-smaller-f', "8px");
+        document.documentElement.style.setProperty('--font-sizr-smallest', "6px");
+    }
+}
+
+function changeFont(selectElement) {
+    const allElements = document.querySelectorAll('*'); // 选择所有元素
+    const selectedOption = selectElement.options[selectElement.selectedIndex];
+    const fontId = selectedOption.getAttribute('data-id');
+
+    let fontFamily;
+
+    switch (fontId) {
+        case 'serif':
+            fontFamily = 'Georgia, serif';
+            break;
+        case 'sans-serif':
+            fontFamily = 'Arial, sans-serif';
+            break;
+        case 'monospace':
+            fontFamily = 'monospace';
+            break;
+        case 'browser':
+            fontFamily = 'initial';
+            break;
+        default:
+            fontFamily = 'IBMPlexSans, sans-serif'; // 默认字体
+            break;
+    }
+
+    // 遍历所有元素，设置字体
+    allElements.forEach(element => {
+        element.style.fontFamily = fontFamily;
+    });
+}
+
+function changePrimaryColor(selectElement) {
+    const selectedOption = selectElement.options[selectElement.selectedIndex];
+    const colorId = selectedOption.getAttribute('data-id');
+
+    switch (colorId) {
+        case 'blue':
+            document.documentElement.style.setProperty('--primary-rgb', "0, 119, 211");
+            document.documentElement.style.setProperty('--primary-text-color', "rgb(255,255,255)");
+            break;
+        case 'green':
+            document.documentElement.style.setProperty('--primary-rgb', "0,202,0");
+            document.documentElement.style.setProperty('--primary-text-color', "rgb(255,255,255)");
+            break;
+        case 'yellow':
+            document.documentElement.style.setProperty('--primary-rgb', "255, 185, 15");
+            document.documentElement.style.setProperty('--primary-text-color', "rgb(255,255,255)");
+            break;
+        case 'red':
+            document.documentElement.style.setProperty('--primary-rgb', "255,0,0");
+            document.documentElement.style.setProperty('--primary-text-color', "rgb(255,255,255)");
+            break;
+        case 'pink':
+            document.documentElement.style.setProperty('--primary-rgb', "255,105,180");
+            document.documentElement.style.setProperty('--primary-text-color', "rgb(255,255,255)");
+            break;
+        default:
+            // 默认颜色（蓝色）
+            document.documentElement.style.setProperty('--primary-rgb', "0, 119, 211");
+            document.documentElement.style.setProperty('--primary-text-color', "rgb(255,255,255)");
+            break;
+    }
+}
+

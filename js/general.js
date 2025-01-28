@@ -84,3 +84,35 @@ function changeRippleSpeed() {
         }, 300);
     });
 }
+
+//modal
+// 获取所有带有data-modal属性的元素
+const modalTriggers = document.querySelectorAll('[data-modal]');
+
+// 为每个元素添加点击事件
+modalTriggers.forEach(trigger => {
+    trigger.addEventListener('click', function() {
+        const modalId = trigger.getAttribute('data-modal');  // 获取对应的modal ID
+        const modal = document.getElementById(modalId);  // 获取对应的modal元素
+        if (modal) {
+            document.getElementsByClassName("modal-back")[0].style.display="block";
+            modal.style.display="block";
+            requestAnimationFrame(() => {
+                modal.classList.add("show");  // 添加显示类
+            });
+        }
+    });
+});
+
+document.querySelectorAll('.close-modal-button').forEach(button => {
+    button.addEventListener('click', function() {
+        const modal = this.closest('.modal');
+        const modalBack = document.getElementsByClassName("modal-back")[0];
+        modal.classList.remove("show"); // 移除显示类
+        modal.addEventListener('transitionend', () => {
+            modal.style.display = "none"; // 隐藏背景
+            modalBack.style.display = "none"; // 隐藏背景
+        }, { once: true }); // 仅在动画结束时执行一次
+
+    });
+});

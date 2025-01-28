@@ -3,12 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <link rel="stylesheet" href="../css/index.css">
-    <link rel="stylesheet" href="../css/general.css">
+    <link rel="stylesheet" href="/css/index.css">
+    <link rel="stylesheet" href="/css/account.css">
+    <link rel="stylesheet" href="/css/general.css">
 </head>
 <body>
 <div id="TopLoading">
-    <img class="TopLoadingLogo" src="../image/user.svg" alt="" >
+    <img class="TopLoadingLogo" src="/image/user.svg" alt="" >
     <div class="progress-ring">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" class="ring">
             <circle class="static" cx="50%" cy="50%" r="43.75%"></circle>
@@ -16,8 +17,8 @@
         </svg>
     </div>
 </div>
-<header>
-    <img class="HeaderLogo" src="../image/logowithtext.svg" alt="" >
+<header class="MainHeader">
+    <img class="HeaderLogo" src="/image/logowithtext.svg" alt="" >
     <button class="menubutton">
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-list" viewBox="0 0 16 16">
             <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5"/>
@@ -102,14 +103,58 @@
                 <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708"/>
             </svg>
         </button>
-        切换账户页面
+        设置
     </div>
 </div>
 <div class="MoreButtonMenu" id="SettingButtonMenu">
-    <label for="DarkModeSide">黑暗模式</label><input type="checkbox" id="DarkModeSide" onclick="darkmode()"><br />
-    <label for="DisableAnimation">禁用动画效果</label><input type="checkbox" id="DisableAnimation" onclick="disableanimation()"><br />
-    <label for="DisableVisible">禁用视觉效果</label><input type="checkbox" id="DisableVisible" onclick="disablevisible()"><br />
-    <label for="EnableHighContrast">高对比度</label><input type="checkbox" id="EnableHighContrast" onclick="enablehighcontrast()"><br />
+    <div class="switch-container">
+        <input type="checkbox" id="switch" class="switch">
+        <label for="switch" class="switch-label"></label>
+    </div>
+    <div class="checkbox-container modal-button">
+        <input type="checkbox" id="DarkModeSide" class="checkbox" onclick="darkmode()">
+        <label for="DarkModeSide">黑暗模式</label>
+    </div>
+    <div class="checkbox-container modal-button">
+        <input type="checkbox" id="ColorfulSide" class="checkbox" onclick="ColorfulMode()">
+        <label for="ColorfulSide">彩色主题模式</label>
+    </div>
+    <div class="checkbox-container modal-button">
+        <input type="checkbox" id="DisableAnimation" class="checkbox" onclick="disableanimation()">
+        <label for="DisableAnimation">禁用动画效果</label>
+    </div>
+    <div class="checkbox-container modal-button">
+        <input type="checkbox" id="DisableVisible" class="checkbox" onclick="disablevisible()">
+        <label for="DisableVisible">禁用视觉效果</label>
+    </div>
+    <div class="checkbox-container modal-button">
+        <input type="checkbox" id="EnableHighContrast" class="checkbox" onclick="enablehighcontrast()">
+        <label for="EnableHighContrast">高对比度</label>
+    </div>
+    <div class="checkbox-container modal-button">
+        <input type="checkbox" id="EnableBiggerFont" class="checkbox" onclick="EnableBiggerFont()">
+        <label for="EnableBiggerFont">大字体</label>
+    </div>
+    <label>
+        字体
+        <select onchange="changeFont(this)">
+            <option data-id="default">默认</option>
+            <option data-id="browser">浏览器默认</option>
+            <option data-id="serif">衬线字体</option>
+            <option data-id="sans-serif">非衬线字体</option>
+            <option data-id="monospace">monospace</option>
+        </select>
+    </label><br />
+    <label>
+        主题颜色
+        <select onchange="changePrimaryColor(this)">
+            <option data-id="blue">蓝色</option>
+            <option data-id="green">绿色</option>
+            <option data-id="yellow">黄色</option>
+            <option data-id="red">红色</option>
+            <option data-id="pink">粉色</option>
+        </select>
+    </label>
 </div>
 <div class="MoreButtonMenu" id="UserButtonMenu">
     <button class="button btn-white btn-full userHeaderMenuButton">
@@ -239,7 +284,26 @@
     </div>
 
 </div>
+<button style="margin-top: 100px" data-modal="UnlockAccountModal"></button>
+<div class="modal-back"></div>
+<div class="modal" id="UnlockAccountModal">
+
+    <div class="modal-title">
+        <label class="modal-text">登录</label>
+        <button class="button btn-white close-modal-button">
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-x" viewBox="0 0 16 16">
+                <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708"/>
+            </svg>
+        </button>
+    </div>
+    <div class="modal-content" style="overflow: hidden">
+        <iframe name="loginFrame" width=100% height=100% style="border: none" src="login.html?type=in">
+        </iframe>
+    </div>
+
+</div>
 </body>
-<script src="../js/main.js"></script>
-<script src="../js/general.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/cookie.js"></script>
+<script src="/js/general.js"></script>
 </html>

@@ -1,0 +1,75 @@
+.main-central{
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    max-width: 480px;
+    height: 380px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.08), 0 6px 20px 0 rgba(0, 0, 0, 0.05);
+    background-color: var(--background-color);
+    border-radius: var(--border-radius);
+    overflow-y: auto;
+}
+.main-central .main-content-title{
+    display: inline-block;
+    width: 100%;
+    text-align: center;
+    height: 40px;
+    line-height: 40px;
+    font-size: var(--font-sizr-bigger-f);
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+.main-central .main-content-label{
+    display: inline-block;
+    font-size: var(--font-sizr-big);
+}
+.main-content{
+    width: calc(100% - 40px);
+    height: calc(100% - 30px);
+    position: absolute;
+    left: 0;
+    top: 0;
+    padding: 15px 20px;
+}
+.main-central .leftIcon{
+    display: none;
+}
+.main-central .leftIcon .Icon{
+    margin: 100px 25px;
+    width: calc(100% - 50px);
+    height: 170px;
+    background-color: transparent;
+}
+.main-content .main-content-bottom{
+    position: absolute;
+    bottom: 20px;
+    width: calc(100% - 40px);
+}
+.main-content .main-content-bottom button{
+    margin-top: 5px;
+}
+@media (min-width: 800px) {
+    .main-central{
+        max-width: 700px;
+    }
+    .main-content{
+        width: calc(100% - 260px);
+        left: 220px;
+    }
+    .main-central .leftIcon{
+        display: block;
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 220px;
+    }
+}
+.central-top-logo{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+}

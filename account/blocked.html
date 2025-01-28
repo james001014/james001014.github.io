@@ -3,8 +3,108 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link rel="stylesheet" href="../css/general.css">
+    <link rel="stylesheet" href="../css/account.css">
+    <link rel="stylesheet" href="../css/info.css">
+
 </head>
 <body>
+    <div id="TopHide" style="display: none;position: fixed;left: 0;top: 0;width: 100%;height: 100%;z-index: 2147483646;background-color: white;padding: 10px">
+        <div class="logo" style="width: calc(100% - 90px)"></div>
+        <h1 style="width: calc(100% - 20px);text-align: center">There was a problem loading the page.</h1>
+        <label id="TopHideError"></label><br />
 
+        <b>Possible Solutions</b><br />
+        <a onclick="location.reload();" style="border-bottom: 1px solid blue;color: blue">Reload</a><br />
+        <a>Try Again Later</a><br />
+        <a>Enable JavaScript On This Page</a><br />
+        <a>Update Your Browser</a><br />
+        <a href="#">Help</a>
+        <a href="#">Help</a>
+    </div>
+    <div class="main-central">
+        <div class="leftIcon">
+            <img class="Icon" src="../image/svg/warn.svg" alt="warn" />
+        </div>
+        <div class="main-content">
+            <label class="main-content-title">您的账户已被锁定</label>
+            <label class="main-content-label">由于我们认为您违反了我们的协议条款，您的账户已被锁定，暂时无法访问。</label><br/>
+            <label class="main-content-label">在 180 天期限内，您有权对该决议提出异议，或下载您的个人数据。若 180 天期满后，您的账户仍处于锁定状态，我们将删除与该账户相关的信息及数据 。</label>
+            <div class="main-content-bottom">
+                <button class="linkbutton">为什么我会看到此消息</button>
+                <button class="button btn-primary btn-width" data-modal="UnlockAccountModal">对该决议提出异议</button>
+                <button class="button btn-white btn-width">下载我的个人数据</button>
+            </div>
+        </div>
+    </div>
+    <div class="central-top-logo">
+        <div class="logo" style="width: calc(100% - 60px)"></div>
+    </div>
+    <div class="modal-back"></div>
+    <div class="modal" id="UnlockAccountModal">
+
+        <div class="modal-title">
+            <label class="modal-text">对该决议提出异议</label>
+            <button class="button btn-white close-modal-button">
+                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-x" viewBox="0 0 16 16">
+                    <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708"/>
+                </svg>
+            </button>
+        </div>
+        <div class="modal-content" style="overflow: hidden">
+            <div id="modalPage1" style="transition: 0.15s;height: 100%;position: relative;">
+                <label class="title">对该决议提出异议</label><br />
+                <label>如果您认为自己未违反我们的协议条款，可以提交申请，我们将进行审核，并在审核完成后通知您结果。</label>
+                <div class="modal-bottomButtons">
+                    <div class="CAPTCHA" style="margin: 0 30px"></div><br />
+                    <div class="checkbox-container modal-button">
+                        <input type="checkbox" id="checkbox2" class="checkbox">
+                        <label for="checkbox2">我确认未违反协议条款。</label>
+                    </div><br /><br />
+                    <button class="button btn-primary modal-button" onclick="UnlockAccount();">下一步</button>
+                </div>
+            </div>
+            <div id="modalPage2" style="transition: 0.15s;top: calc(50% - 50px);left: calc(50% - 20px);position:absolute;transform: translateX(480px)">
+                <div class="progress-ring">
+                    <svg xmlns="" viewBox="0 0 16 16" class="ring">
+                        <circle class="static" cx="50%" cy="50%" r="43.75%"></circle>
+                        <circle class="dynamic" cx="50%" cy="50%" r="43.75%"></circle>
+                    </svg>
+                </div>
+            </div>
+        </div>
+
+    </div>
 </body>
+<script>
+    window.onerror = function(message, source, lineno, colno, error) {
+        if (message.includes("Uncaught TypeError") || error instanceof TypeError) {
+            document.getElementById("TopHide").style.display="block";
+            document.getElementById("TopHideError").innerHTML+=("Uncaught TypeError："+message+"<br />");
+        }
+    };
+    window.addEventListener('unhandledrejection', function(event) {
+        if (event.reason instanceof TypeError) {
+            document.getElementById("TopHide").style.display="block";
+            document.getElementById("TopHideError").innerHTML+=("Promise Rejection："+event.reason+"<br />");
+        }
+    });
+    // 监听所有 link 和 script 标签的加载
+    document.querySelectorAll('link[rel="stylesheet"], script').forEach(function(element) {
+        if (element.tagName.toLowerCase() === 'link') {
+            element.onerror = function() {
+                document.getElementById("TopHide").style.display="block";
+                document.getElementById("TopHideError").innerHTML+=("发生错误的文件："+element.href+"<br />");
+            };
+        } else if (element.tagName.toLowerCase() === 'script') {
+            element.onerror = function() {
+                document.getElementById("TopHide").style.display="block";
+                document.getElementById("TopHideError").innerHTML+=("发生错误的文件："+element.src+"<br />");
+            };
+        }
+    });
+</script>
+<script src="../js/general.js"></script>
+<script src="../js/CAPTCHA.js"></script>
+<script src="../js/accountOperate.js"></script>
 </html>

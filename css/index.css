@@ -5,21 +5,31 @@ html,body{
     color: var(--text-color);
     transition: var(--animation-duration);
 }
+label{
+    font-size: var(--font-sizr-big);
+}
+.button{
+    font-size: var(--font-sizr);
+}
 header{
     position: fixed;
     top: 0;
     left: 0;
     height: 48px;
     width: 100%;
-    background: rgba(var(--primary-rgb), 1);
+    background-color: rgba(var(--primary-rgb), 1);
     box-shadow: 0 2px 3px 1px rgba(var(--text-rgb), 0.1);
-    color: white;
+    color: var(--primary-text-color);
     line-height: 48px;
     z-index: 12000;
     user-select: none;
     -moz-user-select: none;
     -webkit-user-select: none;
     -ms-user-select: none;
+}
+.MainHeader{
+    background-color: var(--background-color);
+    color: var(--text-color);
 }
 .HeaderLogo{
     height: 36px;
@@ -66,8 +76,14 @@ header{
     background-color: transparent;
     color: var(--primary-text-color);
 }
+.MainHeader .headerright .headerrightBtn{
+    color: var(--text-color);
+}
 .headerright .headerrightBtn:hover{
     background-color: var(--primary-color);
+}
+.MainHeader .headerright .headerrightBtn:hover{
+    background-color: rgba(var(--primary-rgb),0.2);
 }
 .headerright .headerrightBtn:active{
     background-color: var(--primary-color);
@@ -123,6 +139,9 @@ header{
     top: 12px;
     transition: var(--animation-duration);
 }
+.MainHeader .MenuLinkContent{
+    color: var(--text-color);
+}
 .MenuLink{
     background-color: transparent;
     outline: none;
@@ -139,9 +158,14 @@ header{
     line-height: 32px;
     color: var(--primary-text-color);
     transition: var(--animation-duration);
+    font-size: var(--font-sizr);
 }
 .MenuLink:hover .MenuLinkContent{
     background-color: var(--primary-color);
+    box-shadow: 0 3px 5px 2px rgba(var(--text-rgb),0.2);
+}
+.MainHeader .MenuLink:hover .MenuLinkContent{
+    background-color: rgba(var(--primary-rgb),0.2);
     box-shadow: 0 3px 5px 2px rgba(var(--text-rgb),0.2);
 }
 .MenuLink:active .MenuLinkContent{
@@ -172,8 +196,10 @@ header{
     border: 1px solid var(--hover-color);
     border-radius: var(--border-radius);
     box-shadow: 0 4px 8px rgba(130,130,130, 0.1);
-    overflow: hidden;
+    overflow-x: hidden;
     height: 350px;
+    opacity: 0;
+    overflow-y: auto;
 }
 @media (max-width: 200px) {
     .MoreButtonMenu{
@@ -233,8 +259,11 @@ header{
 }
 @supports (backdrop-filter: blur(10px)) {
     header {
-        background: rgba(var(--primary-rgb), var(--background-opacity)) !important;
+        background-color: rgba(var(--primary-rgb), var(--background-opacity)) !important;
         backdrop-filter: saturate(180%) blur(10px);
+    }
+    .MainHeader{
+        background-color: rgba(var(--background-color), var(--background-opacity)) !important;
     }
 }
 .TopLoadingLogo{
@@ -287,6 +316,7 @@ header{
     position: absolute;
     top: 9px;
     left: 12px;
+    height: calc(100% - 18px);
 }
 
 .subPageMenu{
@@ -310,7 +340,7 @@ header{
 }
 .MenuLinkMenu{
     transform: translateY(-100%);
-    transition: transform var(--animation-duration);
+    transition: transform var(--animation-duration),opacity var(--animation-duration);
     border-radius: var(--border-radius);
     position: fixed;
     left: 6px;
@@ -319,4 +349,5 @@ header{
     border: 1px solid var(--hover-color);
     box-shadow: 0 4px 8px rgba(130,130,130, 0.1);
     overflow: hidden;
+    opacity: 0;
 }
